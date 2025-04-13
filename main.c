@@ -34,11 +34,10 @@ int buscaLinearNome(struct aluno *V, int N, char *elem) {
     return -1;
 }
 
-// Ordenação por matrícula (Selection Sort)
-void ordenaPorMatricula(struct aluno *V, int N) {
+// Selection Sort por matrícula
+void selectionSortMatricula(struct aluno *V, int N) {
     int i, j, menor;
     struct aluno troca;
-
     for (i = 0; i < N - 1; i++) {
         menor = i;
         for (j = i + 1; j < N; j++) {
@@ -53,11 +52,10 @@ void ordenaPorMatricula(struct aluno *V, int N) {
     }
 }
 
-// Ordenação por nome (Selection Sort)
-void ordenaPorNome(struct aluno *V, int N) {
+// Selection Sort por nome
+void selectionSortNome(struct aluno *V, int N) {
     int i, j, menor;
     struct aluno troca;
-
     for (i = 0; i < N - 1; i++) {
         menor = i;
         for (j = i + 1; j < N; j++) {
@@ -68,6 +66,36 @@ void ordenaPorNome(struct aluno *V, int N) {
             troca = V[i];
             V[i] = V[menor];
             V[menor] = troca;
+        }
+    }
+}
+
+// Bubble Sort por matrícula
+void bubbleSortMatricula(struct aluno *V, int N) {
+    int i, j;
+    struct aluno temp;
+    for (i = 0; i < N - 1; i++) {
+        for (j = 0; j < N - 1 - i; j++) {
+            if (V[j].matricula > V[j + 1].matricula) {
+                temp = V[j];
+                V[j] = V[j + 1];
+                V[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Bubble Sort por nome
+void bubbleSortNome(struct aluno *V, int N) {
+    int i, j;
+    struct aluno temp;
+    for (i = 0; i < N - 1; i++) {
+        for (j = 0; j < N - 1 - i; j++) {
+            if (strcmp(V[j].nome, V[j + 1].nome) > 0) {
+                temp = V[j];
+                V[j] = V[j + 1];
+                V[j + 1] = temp;
+            }
         }
     }
 }
@@ -103,7 +131,7 @@ int buscaBinariaNome(struct aluno *V, int N, char *elem) {
     return -1;
 }
 
-// Exemplo de uso
+// Função main com exemplos
 int main() {
     struct aluno turma[3] = {
         {456, "Bruno", 6.0, 5.5, 7.0},
@@ -113,16 +141,16 @@ int main() {
 
     int pos;
 
-    // Ordena por matrícula e realiza busca binária
-    ordenaPorMatricula(turma, 3);
+    // Exemplo: ordenando com bubble sort por matrícula e buscando
+    bubbleSortMatricula(turma, 3);
     pos = buscaBinariaMatricula(turma, 3, 123);
     if (pos != -1)
-        printf("Aluno com matricula 123 encontrado: %s\n", turma[pos].nome);
+        printf("Aluno com matrícula 123 encontrado: %s\n", turma[pos].nome);
     else
-        printf("Aluno com matricula 123 não encontrado.\n");
+        printf("Aluno com matrícula 123 não encontrado.\n");
 
-    // Ordena por nome e realiza busca binária
-    ordenaPorNome(turma, 3);
+    // Exemplo: ordenando com bubble sort por nome e buscando
+    bubbleSortNome(turma, 3);
     pos = buscaBinariaNome(turma, 3, "Carlos");
     if (pos != -1)
         printf("Aluno chamado Carlos encontrado: %d\n", turma[pos].matricula);
