@@ -100,6 +100,27 @@ void bubbleSortNome(struct aluno *V, int N) {
     }
 }
 
+void insertionSortMatricula(struct aluno *V, int N) {
+	int i, j;
+	struct aluno aux;
+	for(i = 1; i < N; i++) {
+		aux = V[i];
+		for(j = i; (j > 0) && (aux.matricula < V[j - 1].matricula); j--)
+			V[j] = V[j - 1]; V[j] = aux;
+	}
+}
+
+void insertionSortNome(struct aluno *V, int N) {
+    int i, j;
+    struct aluno aux;
+    for(i = 1; i < N; i++) {
+        aux = V[i];
+        for(j = i; (j > 0) && (strcmp(aux.nome, V[j - 1].nome) < 0); j--)
+            V[j] = V[j - 1];
+        V[j] = aux;
+    }
+}
+
 // Busca Binária por matrícula
 int buscaBinariaMatricula(struct aluno *V, int N, int elem) {
     int ini = 0, fim = N - 1, meio;
